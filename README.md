@@ -22,7 +22,7 @@ README.md
 
 
 
-## Interface and Architecture
+## Interface
 
 - Usability
 
@@ -36,7 +36,7 @@ README.md
 
 	There are at least 4 sections that have been added to the page.
 
-## Landing Page Behavior
+## Landing
 
 - Navigation
 
