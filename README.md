@@ -3,8 +3,8 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Interface and Architecture](#Interface and Architecture)
-* [Landing Page Behavior](#Landing Page Behavior)
+* [Interface and Architecture](#interface)
+* [Landing Page Behavior](#landing)
 
 ## Instructions
 
