@@ -18,7 +18,7 @@
  * 
 */
 //Get all sections from html page
-const sections = Array.from(document.querySelectorAll('section'));
+const sections = document.querySelectorAll('section');
 //Get navbar header
 const navbar = document.getElementById("navbar__list");
 
@@ -28,47 +28,58 @@ const navbar = document.getElementById("navbar__list");
  * Start Helper Functions
  * 
 */
-function createListItem() {
+function createMenuItem() {
     sections.forEach((section) => {
         //Get section for naming using attribute name 'data-nav'
-        const sectionName = section.getAttribute('data-nav');
+        const sectionTitle = section.getAttribute('data-nav');
         //Get section for navigate using attribute name 'id'
-        const sectionLink = section.getAttribute('id');
+        const sectionAnchor = section.getAttribute('id');
         //Create li element
-        const listItem = document.createElement('li');
+        const item = document.createElement('li');
         //Add the anchor to listItem
-        listItem.innerHTML = `<a class="menu__link" href="#${sectionLink}">${sectionName}</a>`;
+        item.innerHTML = `<a class="menu__link" href="#${sectionAnchor}">${sectionTitle}</a>`;
         //Add listItem to the Navbar (Menu)
-        navbar.appendChild(listItem);
+        navbar.appendChild(item);
     });
 }
 
 
-//Detect if the section is in viewport
-function sectionInViewPort(elm) {
+//Detect if the section is in view
+function getSectionTopEdge(element) {
     //this line get element bound for our section
-    let section = elm.getBoundingClientRect();
+    let section = element.getBoundingClientRect();
+    console.log("Left: " + section.left + ", Top: " + section.top + ", Width: " + section.width + ", Height: " + section.height);
     return section.top >= 0;
 }
 
 //make the section that being viewed a different appearance
-function toggleActiveClass() {
+function switchActiveClass() {
     //iterate for every section to apply my logic
     sections.forEach((section) => {
         //check if the section is in the view
-        if (sectionInViewPort(section)) {
+        if (getSectionTopEdge(section)) {
             //check if it does'nt contain 'class style' -> 'your-active-class'
             if (!section.classList.contains('your-active-class')) {
                 //then add the 'class style' -> 'your-active-class'
-                section.classList.add('your-active-class');
+                addActiveClass(section);
+            } else {
+                //this mean is not in the view
+                //so remove the class style
+                removeActiveClass(section)
             }
-        } else {
-            //this mean is not in the view
-            //so remove the class style
-            section.classList.remove('your-active-class');
         }
     });
 }
+
+
+function addActiveClass(element) {
+    element.classList.add('your-active-class');
+}
+
+function removeActiveClass(element) {
+    element.classList.remove('your-active-class');
+}
+
 
 
 /**
@@ -78,11 +89,9 @@ function toggleActiveClass() {
 */
 
 // build the nav
-createListItem();
+createMenuItem();
 
 // Add class 'active' to section when near top of viewport
-// document.addEventListener('scroll',toggleActiveClass);
-
 // 'a[href^="#"]' for specific anchor with href attribute
 // Get all anchor to add click event for navigate
 document.querySelectorAll('a').forEach(anchor => {
@@ -105,9 +114,5 @@ document.querySelectorAll('a').forEach(anchor => {
 */
 
 // Build menu 
-
 // Scroll to section on link click
-
 // Set sections as active
-
-
